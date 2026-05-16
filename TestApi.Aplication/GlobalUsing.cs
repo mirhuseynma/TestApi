@@ -1,0 +1,9 @@
+﻿global using Microsoft.Extensions.DependencyInjection;
+global using System.Reflection;
+global using FluentValidation;
+global using AutoMapper;
+global using Microsoft.EntityFrameworkCore;
+global using TestApi.Aplication.Common;
+global using TestApi.Aplication.DTOs.Products;
+global using TestApi.Aplication.Interfaces;
+global using TestApi.Domain.Models;
