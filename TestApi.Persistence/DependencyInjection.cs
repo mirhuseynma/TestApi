@@ -11,6 +11,7 @@ namespace TestApi.Persistence
                 b => b.MigrationsAssembly(typeof(AppDbContext).Assembly.FullName)));
             services.AddScoped<IAppDbContext>(provider => provider.GetRequiredService<AppDbContext>());
             services.AddScoped<IProductServices, ProductServices>();
+            services.AddScoped<ICategoryServices, CategoryServices>();
             return services;
         }
     }

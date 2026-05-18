@@ -19,7 +19,7 @@ namespace TestApi.Aplication.Services
             
 
             var product = _mapper.Map<Product>(productDto);
-            await _context.Products.AddAsync(product);
+            _context.Products.Add(product);
             await _context.SaveChangesAsync();
         }
 
@@ -31,30 +31,31 @@ namespace TestApi.Aplication.Services
             await _context.SaveChangesAsync();
         }
 
-        public async Task<GetProductDto> GetProductByIdAsync(int id)
+        public async Task<GetProductWithCategoryDto> GetProductByIdAsync(int id)
         {
-            var product = await _context.Products.FirstOrDefaultAsync(p => p.Id == id);
+            var product = await _context.Products.Where(p => !p.IsDeleted).FirstOrDefaultAsync(p => p.Id == id);
             if (product == null) throw new Exception("Product not found.");
-            return _mapper.Map<GetProductDto>(product);
+            return _mapper.Map<GetProductWithCategoryDto>(product);
         }
 
-        public async Task<GetProductDto> GetProductByNameAsync(string name)
+        public async Task<GetProductWithCategoryDto> GetProductByNameAsync(string name)
         {
-            var product = await _context.Products.FirstOrDefaultAsync(p => p.Name == name);
+            var product = await _context.Products.Include(p => p.Category).Where(p => !p.IsDeleted).FirstOrDefaultAsync(p => p.Name == name);
             if (product == null) throw new Exception("Product not found.");
-            return _mapper.Map<GetProductDto>(product);
+            
+            return _mapper.Map<GetProductWithCategoryDto>(product);
         }
 
-        public async Task<IEnumerable<GetProductDto>> GetProductsAsync()
+        public async Task<IEnumerable<GetProductWithCategoryDto>> GetProductsAsync()
         {
-            var products = await _context.Products.ToListAsync();
+            var products = await _context.Products.Include(p => p.Category).Where(p => !p.IsDeleted).ToListAsync();
             if (products.Count == 0) throw new Exception("No products found.");
-            return products.Select(p => _mapper.Map<GetProductDto>(p));
+            return _mapper.Map<IEnumerable<GetProductWithCategoryDto>>(products);
         }
 
-        public async    Task UpdateProductAsync(int id, ProductDto productDto)
+        public async Task UpdateProductAsync(int id, ProductDto productDto)
         {
-            var existingProduct = _context.Products.FirstOrDefault(p => p.Id == id);
+            var existingProduct = _context.Products.Where(p => !p.IsDeleted).FirstOrDefault(p => p.Id == id);
             if (existingProduct == null) throw new Exception("Product not found.");
 
             existingProduct.Id = id;

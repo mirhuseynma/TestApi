@@ -48,8 +48,8 @@ namespace TestApi.Api.Controllers
 
         public async Task<IActionResult> Post([FromBody] ProductDto product)
         {
-            var createId = _services.CreateProductAsync(product);
-            return CreatedAtAction(nameof(Get), new { id = createId }, product);
+            await _services.CreateProductAsync(product);
+            return Ok();
         }
 
         [HttpPut("{id:int}")]
