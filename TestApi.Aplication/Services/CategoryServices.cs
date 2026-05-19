@@ -2,10 +2,12 @@
 {
     public class CategoryServices : ICategoryServices
     {
+        private readonly IFileService _fileService;
         private readonly IMapper _mapper;
         private readonly IAppDbContext _context;
-        public CategoryServices(IMapper mapper, IAppDbContext context)
+        public CategoryServices(IMapper mapper, IAppDbContext context, IFileService fileService)
         {
+            _fileService = fileService;
             _mapper = mapper;
             _context = context;
         }

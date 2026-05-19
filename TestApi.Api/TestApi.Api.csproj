@@ -16,7 +16,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\TestApi.Aplication\TestApi.Aplication.csproj" />
-		<ProjectReference Include="..\TestApi.Persistence\TestApi.Persistence.csproj" />
+		<ProjectReference Include="..\TestApi.Infrastructure\TestApi.Infrastructure.csproj" />
 	</ItemGroup>
 
 

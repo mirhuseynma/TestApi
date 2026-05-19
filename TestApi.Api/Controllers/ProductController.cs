@@ -2,6 +2,8 @@
 using TestApi.Aplication.Common;
 using TestApi.Aplication.DTOs.Products;
 using TestApi.Aplication.Interfaces;
+using TestApi.Aplication.Services;
+using TestApi.Infrastructure.Services;
 
 namespace TestApi.Api.Controllers
 {
@@ -10,8 +12,9 @@ namespace TestApi.Api.Controllers
 
     public class ProductController : ControllerBase
     {
-        IAppDbContext _context;
-        IProductServices _services;
+        
+        private readonly IAppDbContext _context;
+        private readonly IProductServices _services;
 
         public ProductController(IAppDbContext appDbContext, IProductServices productServices)
         {

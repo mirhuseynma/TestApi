@@ -8,3 +8,5 @@ global using TestApi.Aplication.DTOs.Products;
 global using TestApi.Aplication.Interfaces;
 global using TestApi.Domain.Models;
 global using TestApi.Aplication.DTOs.Categories;
+global using Microsoft.AspNetCore.Http;
+
